@@ -98,6 +98,7 @@ set(embeddedRTPS_Src
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/embeddedRTPS/src/entities/Domain.cpp
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/embeddedRTPS/src/entities/StatelessReader.cpp
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/embeddedRTPS/src/storages/PBufWrapper.cpp
+    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/embeddedRTPS/src/storages/SimpleHistoryCache.cpp
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/embeddedRTPS/src/rtps.cpp
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/embeddedRTPS/thirdparty/lwip/default_netif.c
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/embeddedRTPS/thirdparty/Micro-CDR/src/c/common.c
