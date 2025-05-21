@@ -41,7 +41,7 @@ extern "C" {
 
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
-
+extern FDCAN_HandleTypeDef hfdcan1;
 /* USER CODE END EC */
 
 /* Exported macro ------------------------------------------------------------*/
@@ -51,7 +51,7 @@ extern "C" {
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
-
+void MainTask(void *argument);
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */

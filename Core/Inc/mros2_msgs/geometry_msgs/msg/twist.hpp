@@ -4,8 +4,7 @@
 #include <iostream>
 #include <string>
 #include <cstring>
-#include "geometry_msgs/msg/vector3.hpp"
-#include "geometry_msgs/msg/vector3.hpp"
+#include "mros2_msgs/geometry_msgs/msg/vector3.hpp"
 
 using namespace std;
 
