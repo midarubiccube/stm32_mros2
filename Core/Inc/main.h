@@ -51,9 +51,9 @@ extern FDCAN_HandleTypeDef hfdcan1;
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
-void MainTask(void *argument);
-/* USER CODE BEGIN EFP */
 
+/* USER CODE BEGIN EFP */
+void MainTask(void *argument);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/

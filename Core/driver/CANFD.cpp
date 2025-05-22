@@ -11,21 +11,20 @@ void CANFD::init(){
 	   /* Notification Error */
 	   Error_Handler();
 	}
-	HAL_FDCAN_ActivateNotification(fdcan_, FDCAN_IT_TX_COMPLETE, FDCAN_TX_BUFFER0 | FDCAN_TX_BUFFER1 | FDCAN_TX_BUFFER2);
 }
 
 bool CANFD::tx(CANFD_Frame &tx_data){
 	FDCAN_TxHeaderTypeDef	TxHeader;
 
-	TxHeader.Identifier = tx_data.id;
-	TxHeader.IdType = FDCAN_STANDARD_ID;
-	TxHeader.TxFrameType = FDCAN_DATA_FRAME;
-	TxHeader.DataLength = FDCAN_DLC_BYTES_32;
-	TxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
-	TxHeader.BitRateSwitch = FDCAN_BRS_ON;
-	TxHeader.FDFormat = FDCAN_FD_CAN;
-	TxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
-	TxHeader.MessageMarker = 0;
+  	TxHeader.Identifier = 0x1;
+  	TxHeader.IdType = FDCAN_STANDARD_ID;
+  	TxHeader.TxFrameType = FDCAN_DATA_FRAME;
+  	TxHeader.DataLength = FDCAN_DLC_BYTES_32;
+  	TxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
+  	TxHeader.BitRateSwitch = FDCAN_BRS_ON;
+  	TxHeader.FDFormat = FDCAN_FD_CAN;
+  	TxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
+  	TxHeader.MessageMarker = 0;
 
 	// Prepare first Tx data for fdcan1
 	for (size_t i = 0; i < tx_data.size; i++) {
@@ -36,6 +35,7 @@ bool CANFD::tx(CANFD_Frame &tx_data){
 	if (HAL_FDCAN_AddMessageToTxFifoQ(fdcan_, &TxHeader, TxData)!= HAL_OK) {
 		Error_Handler();
 	}
+	return true;
 }
 
 uint32_t CANFD::rx_available(void){

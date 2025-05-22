@@ -22,6 +22,7 @@
 #include "lwip.h"
 #include "mros2.hpp"
 #include "CANFD.hpp"
+#include "usart.h"
 #include "mros2_msgs/std_msgs/msg/float32.hpp"
 #include "mros2_msgs/geometry_msgs/msg/twist.hpp"
 
@@ -31,15 +32,23 @@ void userCallback(geometry_msgs::msg::Twist* msg)
 {
   printf("mROS 2 initialization is completed");
   CANFD_Frame frame;
-  memcpy(frame.data, (uint8_t*)&msg->angular.x, 4);
-  frame.size = 20;
+  memcpy(frame.data, (uint8_t*)&msg->angular.x, 64);
+  frame.size = 64;
   canfd->tx(frame);
+  uint8_t msgs[] = "hello world!\n\r";
+  HAL_UART_Transmit(&huart3, msgs, strlen((char*)msgs), 100);
 }
 
 extern "C" void MainTask(void *argument)
 {
     canfd = new CANFD(&hfdcan1);
 	  canfd->init();
+
+    CANFD_Frame test;
+	  test.id=10;
+	  test.size = 64;
+  	memset(test.data, 0, 64);
+	  canfd->tx(test);
 
 	  mros2::init();
 	  printf("mROS 2 initialization is completed");
