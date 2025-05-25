@@ -19,7 +19,7 @@ bool CANFD::tx(CANFD_Frame &tx_data){
   	TxHeader.Identifier = 0x1;
   	TxHeader.IdType = FDCAN_STANDARD_ID;
   	TxHeader.TxFrameType = FDCAN_DATA_FRAME;
-  	TxHeader.DataLength = FDCAN_DLC_BYTES_32;
+  	TxHeader.DataLength = FDCAN_DLC_BYTES_64;
   	TxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
   	TxHeader.BitRateSwitch = FDCAN_BRS_ON;
   	TxHeader.FDFormat = FDCAN_FD_CAN;
@@ -28,7 +28,7 @@ bool CANFD::tx(CANFD_Frame &tx_data){
 
 	// Prepare first Tx data for fdcan1
 	for (size_t i = 0; i < tx_data.size; i++) {
-		TxData[i] = tx_data.data[i];
+		TxData[i] = i;
 	}
 
 	// Put Tx data to Txfifo

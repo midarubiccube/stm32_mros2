@@ -58,6 +58,7 @@
         "cinttypes": "cpp",
         "typeinfo": "cpp",
         "variant": "cpp",
-        "stm32h7xx_hal.h": "c"
+        "stm32h7xx_hal.h": "c",
+        "*.tpp": "cpp"
     }
 }
