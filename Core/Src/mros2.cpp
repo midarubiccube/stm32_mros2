@@ -21,6 +21,8 @@ namespace mros2
 rtps::Domain *domain_ptr = NULL;
 rtps::Participant *part_ptr = NULL; //TODO: detele this
 rtps::Writer *pub_ptr = NULL;
+rtps::Writer *context_writer = NULL;
+rtps::Reader *context_reader = NULL;
 
 #define SUB_MSG_SIZE	4	// addr size
 osMessageQueueId_t subscriber_msg_queue_id;
@@ -139,6 +141,21 @@ Node Node::create_node(std::string node_name)
     {
     }
   }
+  
+  context_writer = domain_ptr->createWriter(
+    *part_ptr,
+    "ros_discovery_info",
+    "rmw_dds_common::msg::dds_::ParticipantEntitiesInfo_",
+    true
+  );
+
+  context_reader = domain_ptr->createReader(
+    *part_ptr,
+    "ros_discovery_info",
+    "rmw_dds_common::msg::dds_::ParticipantEntitiesInfo_",
+    true
+  );
+
   completeNodeInit = true;
 
   printf("[MROS2LIB] successfully created participant");

@@ -59,6 +59,25 @@
         "typeinfo": "cpp",
         "variant": "cpp",
         "stm32h7xx_hal.h": "c",
-        "*.tpp": "cpp"
+        "*.tpp": "cpp",
+        "bitset": "cpp",
+        "complex": "cpp",
+        "condition_variable": "cpp",
+        "forward_list": "cpp",
+        "list": "cpp",
+        "map": "cpp",
+        "set": "cpp",
+        "unordered_set": "cpp",
+        "system_error": "cpp",
+        "hash_map": "cpp",
+        "hash_set": "cpp",
+        "fstream": "cpp",
+        "mutex": "cpp",
+        "semaphore": "cpp",
+        "shared_mutex": "cpp",
+        "stop_token": "cpp",
+        "thread": "cpp",
+        "cfenv": "cpp",
+        "typeindex": "cpp"
     }
 }

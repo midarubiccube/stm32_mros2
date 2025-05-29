@@ -47,7 +47,6 @@ namespace mros2
 
     std::string node_name;
     rtps::Participant *part;
-
   private:
   };
 
