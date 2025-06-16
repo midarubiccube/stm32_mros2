@@ -171,7 +171,7 @@ Node Node::create_node(std::string node_name)
   part_ptr->registerOnNewSubscriberMatchedCallback(pubMatch, &subMatched);
   memcpy(graph_info.gid.data.data(), &node.part->m_guidPrefix.id, 12);
   graph_info.gid.data[12] = node.part->m_participantId;
-  graph_publish(&graph_info);
+  //graph_publish(&graph_info);
 
 
   context_reader = domain_ptr->createReader(
@@ -291,10 +291,9 @@ void spin()
 void graph_add_node()
 {
   rmw_dds_common::msg::NodeEntitiesInfo node_info;
-  node_info.node_name = "test";
+  node_info.node_name = "ros2canfd";
   node_info.node_namespace = "";
   graph_info.node_entities_info_seq.push_back(node_info);
-  
   graph_publish(&graph_info);
 }
 
