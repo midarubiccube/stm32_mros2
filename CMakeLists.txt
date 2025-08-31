@@ -15,6 +15,7 @@ set(CMAKE_C_EXTENSIONS ON)
 set(Application_Src
     firmware/src/app.cpp
     firmware/src/mros2.cpp
+    firmware/src/CANFD.cpp
 )
 
 set(Include_Dirs
