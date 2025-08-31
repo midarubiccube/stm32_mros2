@@ -42,15 +42,8 @@ set(MX_Include_Dirs
 set(MX_Application_Src
     ${CMAKE_SOURCE_DIR}/LWIP/Target/ethernetif.c
     ${CMAKE_SOURCE_DIR}/LWIP/App/lwip.c
-<<<<<<< HEAD
-    ${CMAKE_SOURCE_DIR}/Core/Src/main.c
-=======
-    ${CMAKE_SOURCE_DIR}/Core/Src/main.cpp
-    ${CMAKE_SOURCE_DIR}/Core/Src/main.c
-    ${CMAKE_SOURCE_DIR}/Core/Src/mros2.cpp
     ${CMAKE_SOURCE_DIR}/Core/Src/main.c
     ${CMAKE_SOURCE_DIR}/Core/Src/gpio.c
->>>>>>> develop
     ${CMAKE_SOURCE_DIR}/Core/Src/freertos.c
     ${CMAKE_SOURCE_DIR}/Core/Src/fdcan.c
     ${CMAKE_SOURCE_DIR}/Core/Src/usart.c
@@ -86,7 +79,6 @@ set(STM32_Drivers_Src
     ${CMAKE_SOURCE_DIR}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c
     ${CMAKE_SOURCE_DIR}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c
     ${CMAKE_SOURCE_DIR}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c
-    ${CMAKE_SOURCE_DIR}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_fdcan.c
     ${CMAKE_SOURCE_DIR}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_fdcan.c
     ${CMAKE_SOURCE_DIR}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c
     ${CMAKE_SOURCE_DIR}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c
@@ -142,52 +134,52 @@ set(LwIP_Src
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/netif/slipif.c
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/netif/zepif.c
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/netif/ppp/ecp.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/api/err.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/api/sockets.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/api/netbuf.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/api/netdb.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/api/netifapi.c
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/api/api_lib.c
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/api/api_msg.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/api/netbuf.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/api/netifapi.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/api/netdb.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/api/tcpip.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/api/err.c
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/api/if_api.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/sys.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/raw.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/timeouts.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/pbuf.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/stats.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/altcp_alloc.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/api/sockets.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/api/tcpip.c
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/def.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/raw.c
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/memp.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/altcp_tcp.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/init.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/inet_chksum.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/dns.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/netif.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/ip.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/tcp_in.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/tcp.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/tcp_out.c
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/mem.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/tcp.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/pbuf.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/timeouts.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/tcp_out.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/altcp_alloc.c
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/udp.c
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/altcp.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/ipv4/autoip.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/ip.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/netif.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/init.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/dns.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/sys.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/altcp_tcp.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/stats.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/inet_chksum.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/tcp_in.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/ipv4/ip4.c
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/ipv4/ip4_addr.c
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/ipv4/ip4_frag.c
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/ipv4/igmp.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/ipv4/icmp.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/ipv4/ip4.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/ipv4/ip4_addr.c
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/ipv4/dhcp.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/ipv6/icmp6.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/ipv6/dhcp6.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/ipv6/ip6.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/ipv6/mld6.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/ipv4/icmp.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/ipv4/autoip.c
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/ipv6/ethip6.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/ipv6/mld6.c
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/ipv6/inet6.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/ipv6/dhcp6.c
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/ipv6/ip6_addr.c
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/ipv6/nd6.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/ipv6/ip6.c
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/ipv6/ip6_frag.c
+    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/core/ipv6/icmp6.c
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/system/OS/sys_arch.c
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/apps/mqtt/mqtt.c
 )
@@ -199,9 +191,7 @@ set(MX_LINK_DIRS
 # Project static libraries
 set(MX_LINK_LIBS 
     STM32_Drivers
-    FreeRTOS
-	LwIP
-	
+    FreeRTOS	LwIP	
 )
 # Interface library for includes and symbols
 add_library(stm32cubemx INTERFACE)

@@ -57,7 +57,6 @@
 /* External variables --------------------------------------------------------*/
 extern ETH_HandleTypeDef heth;
 extern FDCAN_HandleTypeDef hfdcan1;
-extern FDCAN_HandleTypeDef hfdcan1;
 extern TIM_HandleTypeDef htim6;
 
 /* USER CODE BEGIN EV */
