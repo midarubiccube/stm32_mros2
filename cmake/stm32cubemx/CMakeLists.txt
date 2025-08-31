@@ -35,8 +35,6 @@ set(MX_Include_Dirs
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/include/compat/posix/sys
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/src/include/compat/stdc
     ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/LwIP/system/arch
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/embeddedRTPS/include
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/embeddedRTPS/thirdparty/Micro-CDR/include
     ${CMAKE_SOURCE_DIR}/Drivers/CMSIS/Include
 )
 
@@ -44,8 +42,7 @@ set(MX_Include_Dirs
 set(MX_Application_Src
     ${CMAKE_SOURCE_DIR}/LWIP/Target/ethernetif.c
     ${CMAKE_SOURCE_DIR}/LWIP/App/lwip.c
-    ${CMAKE_SOURCE_DIR}/Core/Src/main.cpp
-    ${CMAKE_SOURCE_DIR}/Core/Src/mros2.cpp
+    ${CMAKE_SOURCE_DIR}/Core/Src/main.c
     ${CMAKE_SOURCE_DIR}/Core/Src/freertos.c
     ${CMAKE_SOURCE_DIR}/Core/Src/stm32h7xx_it.c
     ${CMAKE_SOURCE_DIR}/Core/Src/stm32h7xx_hal_msp.c
@@ -78,35 +75,13 @@ set(STM32_Drivers_Src
     ${CMAKE_SOURCE_DIR}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c
     ${CMAKE_SOURCE_DIR}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c
     ${CMAKE_SOURCE_DIR}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c
+    ${CMAKE_SOURCE_DIR}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_fdcan.c
     ${CMAKE_SOURCE_DIR}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c
     ${CMAKE_SOURCE_DIR}/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c
     ${CMAKE_SOURCE_DIR}/Drivers/BSP/Components/lan8742/lan8742.c
 )
 
 # Drivers Midllewares
-
-set(embeddedRTPS_Src
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/embeddedRTPS/src/discovery/TopicData.cpp
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/embeddedRTPS/src/discovery/ParticipantProxyData.cpp
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/embeddedRTPS/src/discovery/SEDPAgent.cpp
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/embeddedRTPS/src/discovery/SPDPAgent.cpp
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/embeddedRTPS/src/messages/MessageReceiver.cpp
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/embeddedRTPS/src/messages/MessageTypes.cpp
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/embeddedRTPS/src/ThreadPool.cpp
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/embeddedRTPS/src/communication/UdpDriver.cpp
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/embeddedRTPS/src/entities/Participant.cpp
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/embeddedRTPS/src/entities/Domain.cpp
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/embeddedRTPS/src/entities/StatelessReader.cpp
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/embeddedRTPS/src/storages/PBufWrapper.cpp
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/embeddedRTPS/src/storages/SimpleHistoryCache.cpp
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/embeddedRTPS/src/rtps.cpp
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/embeddedRTPS/thirdparty/lwip/default_netif.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/embeddedRTPS/thirdparty/Micro-CDR/src/c/common.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/embeddedRTPS/thirdparty/Micro-CDR/src/c/types/basic.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/embeddedRTPS/thirdparty/Micro-CDR/src/c/types/string.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/embeddedRTPS/thirdparty/Micro-CDR/src/c/types/sequence.c
-    ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/embeddedRTPS/thirdparty/Micro-CDR/src/c/types/array.c
-)
 
 
 set(FreeRTOS_Src
@@ -212,9 +187,9 @@ set(MX_LINK_DIRS
 # Project static libraries
 set(MX_LINK_LIBS 
     STM32_Drivers
-    embeddedRTPS
     FreeRTOS
 	LwIP
+	
 )
 # Interface library for includes and symbols
 add_library(stm32cubemx INTERFACE)
@@ -225,11 +200,6 @@ target_compile_definitions(stm32cubemx INTERFACE ${MX_Defines_Syms})
 add_library(STM32_Drivers OBJECT)
 target_sources(STM32_Drivers PRIVATE ${STM32_Drivers_Src})
 target_link_libraries(STM32_Drivers PUBLIC stm32cubemx)
-
-add_library(embeddedRTPS OBJECT)
-target_sources(embeddedRTPS PRIVATE ${embeddedRTPS_Src})
-target_link_libraries(embeddedRTPS PUBLIC stm32cubemx)
-
 
 # Create FreeRTOS static library
 add_library(FreeRTOS OBJECT)
