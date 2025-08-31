@@ -2,6 +2,8 @@
 #include <rtps/rtps.h>
 #include "lwip.h"
 
+#include "mros2_msgs/rmw_dds_common/msg/participant_entities_info.hpp"
+
 #ifdef __MBED__
 #include "mbed.h"
 #else  /* __MBED__ */
@@ -21,6 +23,8 @@ namespace mros2
 rtps::Domain *domain_ptr = NULL;
 rtps::Participant *part_ptr = NULL; //TODO: detele this
 rtps::Writer *pub_ptr = NULL;
+rtps::Writer *context_writer = NULL;
+rtps::Reader *context_reader = NULL;
 
 #define SUB_MSG_SIZE	4	// addr size
 osMessageQueueId_t subscriber_msg_queue_id;
@@ -30,7 +34,10 @@ uint8_t endpointId = 0;
 uint32_t subCbArray[10];
 
 uint8_t buf[100];
+uint8_t context_buf[200];
 uint8_t buf_index = 4;
+
+rmw_dds_common::msg::ParticipantEntitiesInfo graph_info;
 
 /* Callback function to set the boolean to true upon a match */
 void setTrue(void* args)
@@ -114,6 +121,20 @@ void mros2_init(void *args)
   }
 }
 
+void graph_publish(rmw_dds_common::msg::ParticipantEntitiesInfo* msg)
+{
+  static uint8_t buffer[100];
+  // Encapsulation
+  buffer[0] = 0;
+  buffer[1] = 1;
+  buffer[2] = 0;
+  buffer[3] = 0;  
+  
+  msg->copyToBuf(&buffer[4]);
+  msg->memAlign(&buffer[4]);
+  context_writer->newChange(rtps::ChangeKind_t::ALIVE, buffer, msg->getTotalSize() + 4);
+}
+
 /*
  *  Node functions
  */
@@ -139,6 +160,27 @@ Node Node::create_node(std::string node_name)
     {
     }
   }
+  
+  context_writer = domain_ptr->createWriter(
+    *part_ptr,
+    "ros_discovery_info",
+    message_traits::TypeName<rmw_dds_common::msg::ParticipantEntitiesInfo*>().value(),
+    true
+  );
+
+  part_ptr->registerOnNewSubscriberMatchedCallback(pubMatch, &subMatched);
+  memcpy(graph_info.gid.data.data(), &node.part->m_guidPrefix.id, 12);
+  graph_info.gid.data[12] = node.part->m_participantId;
+  //graph_publish(&graph_info);
+
+
+  context_reader = domain_ptr->createReader(
+    *part_ptr,
+    "ros_discovery_info",
+    message_traits::TypeName<rmw_dds_common::msg::ParticipantEntitiesInfo*>().value(),
+    false
+  );
+  context_reader->registerCallback(ros_discovery_callback_handler, nullptr);
   completeNodeInit = true;
 
   printf("[MROS2LIB] successfully created participant");
@@ -151,6 +193,7 @@ Node Node::create_node(std::string node_name)
 template <class T>
 Publisher Node::create_publisher(std::string topic_name, int qos)
 {
+
   rtps::Writer* writer = domain_ptr->createWriter(*part_ptr, ("rt/"+topic_name).c_str(), message_traits::TypeName<T*>().value(), false);
   if(writer == nullptr) {
 	  printf("[MROS2LIB] ERROR: failed to create writer in create_publisher()");
@@ -162,7 +205,7 @@ Publisher Node::create_publisher(std::string topic_name, int qos)
   pub.topic_name = topic_name;
 
   /* Register callback to ensure that a publisher is matched to the writer before sending messages */
-  part_ptr->registerOnNewSubscriberMatchedCallback(pubMatch, &subMatched);
+  graph_add_node();
 
   printf("[MROS2LIB] create_publisher complete.");
   return pub;
@@ -243,6 +286,23 @@ void spin()
   }
 }
 
+
+
+void graph_add_node()
+{
+  rmw_dds_common::msg::NodeEntitiesInfo node_info;
+  node_info.node_name = "ros2canfd";
+  node_info.node_namespace = "";
+  graph_info.node_entities_info_seq.push_back(node_info);
+  graph_publish(&graph_info);
+}
+
+void ros_discovery_callback_handler(void *callee, const rtps::ReaderCacheChange &cacheChange)
+{
+  rmw_dds_common::msg::ParticipantEntitiesInfo msg;
+  msg.copyFromBuf(&cacheChange.data[4]);
+  printf("[MROS2LIB] receive os_discovery_callback");
+}
 }  /* namespace mros2 */
 
 

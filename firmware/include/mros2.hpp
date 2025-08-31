@@ -47,7 +47,6 @@ namespace mros2
 
     std::string node_name;
     rtps::Participant *part;
-
   private:
   };
 
@@ -73,6 +72,8 @@ namespace mros2
   };
 
   void spin();
+  void ros_discovery_callback_handler(void *callee, const rtps::ReaderCacheChange &cacheChange);
+  void graph_add_node();
 } /* namespace mros2 */
 
 namespace message_traits

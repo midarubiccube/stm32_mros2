@@ -1,18 +1,18 @@
-#ifndef _GEOMETRY_MSGS_MSG_TWIST_H
-#define _GEOMETRY_MSGS_MSG_TWIST_H
+#ifndef _RMW_DDS_COMMON_MSG_GID_H
+#define _RMW_DDS_COMMON_MSG_GID_H
 
 #include <iostream>
 #include <string>
 #include <cstring>
-#include "mros2_msgs/geometry_msgs/msg/vector3.hpp"
+#include <array>
 
 using namespace std;
 
-namespace geometry_msgs
+namespace rmw_dds_common
 {
 namespace msg
 {
-class Twist
+class Gid
 {
 public:
   uint32_t cntPub = 0;
@@ -81,9 +81,7 @@ public:
   }
 
   
-  geometry_msgs::msg::Vector3 linear;
-  
-  geometry_msgs::msg::Vector3 angular;
+  std::array<int8_t, 16> data;
   
 
   uint32_t copyToBuf(uint8_t *addrPtr)
@@ -94,18 +92,13 @@ public:
     
     
     
-    tmpPub = linear.copyToBuf(addrPtr);
-    cntPub += tmpPub;
-    addrPtr += tmpPub;
-    
-    
-    
-    
-    
-    tmpPub = angular.copyToBuf(addrPtr);
-    cntPub += tmpPub;
-    addrPtr += tmpPub;
-    
+    const int8_t *ptr = data.data();
+    for (int i = 0; i < 16; i++)
+    {
+      memcpy(addrPtr, &(ptr[i]), 1);
+      addrPtr += 1;
+      cntPub += 1;
+    }
     
     
 
@@ -121,20 +114,14 @@ public:
     
     
     
-    tmpSub = linear.copyFromBuf(addrPtr);
-    cntSub += tmpSub;
-    addrPtr += tmpSub;
-    
-
-    
-    
-    
-    
-    tmpSub = angular.copyFromBuf(addrPtr);
-    cntSub += tmpSub;
-    addrPtr += tmpSub;
-    
-
+    for (int i = 0; i < 16; i++)
+    {
+      int8_t buf;
+      memcpy(&buf, addrPtr, 1);
+      data[i] = buf;
+      addrPtr += 1;
+      cntSub += 1;
+    }
     
     
 
@@ -198,7 +185,7 @@ public:
   }
 
 private:
-  std::string type_name = "geometry_msgs::msg::dds_::Twist";
+  std::string type_name = "rmw_dds_common::msg::dds_::Gid";
 };
 };
 }
@@ -206,10 +193,10 @@ private:
 namespace message_traits
 {
 template<>
-struct TypeName<geometry_msgs::msg::Twist*> {
+struct TypeName<rmw_dds_common::msg::Gid*> {
   static const char* value()
   {
-    return "geometry_msgs::msg::dds_::Twist_";
+    return "rmw_dds_common::msg::dds_::Gid_";
   }
 };
 }
