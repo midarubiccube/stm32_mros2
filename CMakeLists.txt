@@ -12,6 +12,14 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS ON)
 
+set(Application_Src
+    firmware/src/app.cpp
+    firmware/src/mros2.cpp
+)
+
+set(Include_Dirs
+    ${CMAKE_SOURCE_DIR}/firmware/include
+)
 
 # Define the build type
 if(NOT CMAKE_BUILD_TYPE)
@@ -47,14 +55,10 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 )
 
 # Add sources to executable
-target_sources(${CMAKE_PROJECT_NAME} PRIVATE
-    # Add user sources here
-)
+target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${Application_Src})
 
 # Add include paths
-target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
-    # Add user defined include paths
-)
+target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE ${Include_Dirs})
 
 # Add project symbols (macros)
 target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
