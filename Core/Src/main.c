@@ -51,7 +51,7 @@ UART_HandleTypeDef huart3;
 osThreadId_t defaultTaskHandle;
 const osThreadAttr_t defaultTask_attributes = {
   .name = "defaultTask",
-  .stack_size = 8000 * 4,
+  .stack_size = 6000 * 4,
   .priority = (osPriority_t) osPriorityBelowNormal3,
 };
 /* USER CODE BEGIN PV */
@@ -414,7 +414,7 @@ static void MX_GPIO_Init(void)
   * @retval None
   */
 /* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void *argument)
+__weak void StartDefaultTask(void *argument)
 {
   /* init code for LWIP */
   MX_LWIP_Init();

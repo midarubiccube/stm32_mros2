@@ -187,9 +187,7 @@ set(MX_LINK_DIRS
 # Project static libraries
 set(MX_LINK_LIBS 
     STM32_Drivers
-    FreeRTOS
-	LwIP
-	
+    FreeRTOS	LwIP	
 )
 # Interface library for includes and symbols
 add_library(stm32cubemx INTERFACE)
@@ -200,6 +198,7 @@ target_compile_definitions(stm32cubemx INTERFACE ${MX_Defines_Syms})
 add_library(STM32_Drivers OBJECT)
 target_sources(STM32_Drivers PRIVATE ${STM32_Drivers_Src})
 target_link_libraries(STM32_Drivers PUBLIC stm32cubemx)
+
 
 # Create FreeRTOS static library
 add_library(FreeRTOS OBJECT)
